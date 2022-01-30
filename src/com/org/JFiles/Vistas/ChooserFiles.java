@@ -6,8 +6,9 @@ import java.io.File;
  *
  * @author jp
  */
-public class Vistas {
+public class ChooserFiles {
 
+    @SuppressWarnings("SleepWhileInLoop")
     public static File ChooserFile(String Titulo, String Aceptar) {
         try {
             Vistas_File v = Vistas_File.getNodo(Titulo, Aceptar);
@@ -18,7 +19,7 @@ public class Vistas {
                     return v.getFile();
                 }
                 if (!v.isVisible()) {
-                    return null;
+                    return v.getFile() ;
                 }
             }
         } catch (InterruptedException e) {

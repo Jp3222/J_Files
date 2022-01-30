@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class Vista_Folders extends javax.swing.JFrame implements ActionListener {
+class Vista_Folders extends javax.swing.JFrame implements ActionListener {
 
     private static Vista_Folders Nodo;
 
