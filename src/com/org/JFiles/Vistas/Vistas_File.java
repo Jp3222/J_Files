@@ -59,13 +59,17 @@ class Vistas_File extends javax.swing.JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        evento(e);
+    }
+
+    public synchronized void evento(ActionEvent e) {
         if (e.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
             this.file = jfcArchivo.getSelectedFile();
             this.dispose();
         } else if (e.getActionCommand().equalsIgnoreCase("CancelSelection")) {
             this.dispose();
-            Nodo = null;
         }
+        this.notify();
     }
 
     public File getFile() {

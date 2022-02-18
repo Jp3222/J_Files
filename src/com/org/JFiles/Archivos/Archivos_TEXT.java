@@ -20,11 +20,11 @@ public class Archivos_TEXT {
 
     @SuppressWarnings("null")
     public boolean Crear_Archivo(File url, String nombre, String tipo) {
-        String d = url.getPath() + "/" + nombre + "." + tipo;
         try {
             if (url != null) {
                 if (url.isDirectory()) {
                     if (url.exists()) {
+                        String d = url.getPath() + "/" + nombre + "." + tipo;
                         file = new File(d);
                         return file.createNewFile();
                     }
@@ -91,8 +91,6 @@ public class Archivos_TEXT {
         }
         return null;
     }
-
-    
 
     private boolean Validacion_Archivos(File file) {
         return file != null && file.exists() && file.isFile();
