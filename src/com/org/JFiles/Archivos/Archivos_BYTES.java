@@ -15,38 +15,11 @@ public class Archivos_BYTES {
     private FileInputStream input;
     private FileOutputStream output;
     private File fl;
-    private String tipo, nombre, url;
-    private final String[] info;
 
     public Archivos_BYTES() {
-        info = new String[3];
         this.input = null;
         this.output = null;
         this.fl = null;
-    }
-
-    public String[] PartirRuta(String url) {
-        String[] aux = url.split("/|\\.");
-        String u = "";
-        for (int i = 0; i < aux.length - 2; i++) {
-            u += aux[i] + "/";
-        }
-        this.info[0] = this.url = u;
-        this.info[1] = this.nombre = aux[aux.length - 2];
-        this.info[2] = this.tipo = aux[aux.length - 1];
-        return info;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getTipo() {
-        return tipo;
     }
 
     @SuppressWarnings("null")
@@ -123,13 +96,12 @@ public class Archivos_BYTES {
         return null;
     }
 
-    public void Copiar_Archivo(File file, File url) {
+    public void Copiar_Archivo(File file, File url, String nombre) {
         try {
             if (Validacion_Archivos(file)) {
                 if (Validacion_Folders(url)) {
-                    String[] archivo = PartirRuta(file.getPath());
                     input = new FileInputStream(file);
-                    output = new FileOutputStream(url.getPath() + "/" + archivo[1] + "copia" + "." + archivo[0]);
+                    output = new FileOutputStream(url.getPath() + "/" + nombre);
                     output.write(input.readAllBytes());
                     input.close();
                     output.close();
@@ -144,23 +116,41 @@ public class Archivos_BYTES {
         }
     }
 
-    private byte[] merge(byte[] array1, byte[] array2) {
-        byte[] array3 = new byte[array1.length + array2.length];
-        int j = 0;
-        for (int i = 0; i < array1.length; i++, j++) {
-            array3[j] = array1[i];
+    /**
+     * Metodo encargado de partir la ruta cada que se encuente un "/" en la cadena
+     * @param ruta cadena que contiene la ruta que se va a partir
+     * @param imprimir_elementos true si se desea imprimir los elemetos
+     * obtenidos de partir dicha ruta
+     * @return un array con los elementos obtenidos de la ruta
+     */
+    public String[] PartirRuta(String ruta, boolean imprimir_elementos) {
+        String[] info = ruta.split("/");
+        if (imprimir_elementos) {
+            for (String string : info) {
+                System.out.println(string);
+            }
         }
-        for (int i = 0; i < array2.length; i++, j++) {
-            array3[j] = array2[i];
-        }
-        return array3;
+        return info;
     }
 
-    private boolean Validacion_Archivos(File file) {
+    /**
+     * @param file archivo a evaluar
+     * <br> Este metodo es encargado de evalurar que el parameto file no sea
+     * null, que exista y que sea un archivo
+     *
+     */
+    public boolean Validacion_Archivos(File file) {
         return file != null && file.exists() && file.isFile();
     }
 
-    private boolean Validacion_Folders(File file) {
+    /**
+     * @param file directorio a evaluar
+     * <br> Este metodo es encargado de evalurar que el parameto file no sea
+     * null, que exista y que sea un directorio
+     *
+     */
+    public boolean Validacion_Folders(File file) {
         return file != null && file.exists() && file.isDirectory();
     }
+
 }

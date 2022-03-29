@@ -51,7 +51,7 @@ public class Archivos_TEXT {
 
     public void Escribir_Archivo(File file, String txt) {
         try {
-            if (Validacion_Archivos(file) && file.canWrite()) {
+            if (isArchivos(file) && file.canWrite()) {
                 output = new FileWriter(file.getAbsoluteFile());
                 output.write(txt);
                 output.close();
@@ -63,9 +63,9 @@ public class Archivos_TEXT {
         }
     }
 
-    public String Leer_Archivo(File file, String text) {
+    public String Leer_Archivo(File file) {
         try {
-            if (Validacion_Archivos(file) && file.canRead()) {
+            if (isArchivos(file) && file.canRead()) {
                 input = new FileReader(file.getAbsolutePath());
                 String txt = "";
                 char character;
@@ -92,11 +92,28 @@ public class Archivos_TEXT {
         return null;
     }
 
-    private boolean Validacion_Archivos(File file) {
+    /**
+     *
+     * @param file archivo el cual se va a validar
+     * <br> metodo que valida algunos aspectos de un objeto File considerando
+     * que sea un archivo
+     * <br> valida que el archivo no sea null, si exista y que sea un archivo
+     * @return true si
+     */
+    public boolean isArchivos(File file) {
         return file != null && file.exists() && file.isFile();
     }
 
-    private boolean Validacion_Folders(File file) {
+    /**
+     *
+     * @param file directorio el cual se va a validar
+     * <br> metodo que valida algunos aspectos de un objeto File considerando
+     * que sea un directorio
+     * <br> valida que el directorio no sea null, si exista y que sea un
+     * directorio
+     * @return true si
+     */
+    public boolean isFolder(File file) {
         return file != null && file.exists() && file.isDirectory();
     }
 
